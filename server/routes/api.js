@@ -11,7 +11,7 @@ router.get('/pets', async (req, res) => {
     try {
         await Pets.find()
             .then(pets => {
-                
+
                 res.send(pets)
             })
     } catch (err) {
@@ -29,19 +29,27 @@ router.post('/pet', async (req, res) => {
             color,
             age
         } = req.body;
-        console.log(req.body)
+
         if (req.body !== undefined) {
-            pets = new Pets({
-                name,
-                created_at,
-                type,
-                color,
-                age
-            })
-            await pets.save();
-            res.send({
-                success: true,
-            })
+            if (name.length > 25 || name.length === undefined) {
+                return
+            } else if (name.match(/^\s+$/) !== null || age.match(/^\s+$/) !== null || type.match(/^\s+$/) !== null) {
+                return
+            } else if (age === 0 || isNaN(age)) {
+                return
+            } else {
+                pets = new Pets({
+                    name,
+                    created_at,
+                    type,
+                    color,
+                    age
+                })
+                await pets.save();
+                res.send({
+                    success: true,
+                })
+            }
         }
     } catch (err) {
         res.send(err)

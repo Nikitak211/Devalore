@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const path = require('path');
 
 const app = express();
 
@@ -27,6 +28,11 @@ mongoose.connection.once('open', function () {
     console.log('***connection not available***', error);
 });
 
+app.use(express.static(path.join(__dirname, "..", "client/build")));
+
+app.get('/pets', (req, res) => {
+    res.sendFile(path.join(__dirname, "..", "client/build", "index.html"));
+})
 app.use('/api',Api)
 
 const PORT = process.env.PORT || 7000

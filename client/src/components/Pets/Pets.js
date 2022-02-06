@@ -23,8 +23,13 @@ const Pets = () => {
     }, [])
     return (
         <div>
-            <Typography variant="h3" component="h3">
-                total age: {total.reduce((sum, a) => sum + a, 0)}
+            <Typography sx={{
+                boxShadow: 2,
+                borderRadius:2,
+                m:3,
+                fontWeight:"bold"
+            }} variant="h3" component="h3">
+                Total Ages: {total.reduce((sum, a) => sum + a, 0)}
             </Typography>
             {pets !== undefined ? pets.map(pet => {
                 
@@ -38,28 +43,31 @@ const Pets = () => {
                             borderRadius: 3,
                             boxShadow: 2,
                             width: "60vh",
-                            height: '50vh',
+                            minWidth:"fit-content",
+                            height: 'fit-content',
+                            minHeight: "fit-content",
                             backdropFilter: "blur(3px)",
                             display:"grid",
                             alignItems: "center",
-                            justifyContent: "center"
+                            justifyContent: "center",
+                            gap:2
 
                         }}
                     >
                         <Typography variant="h3" component="h3">
-                            name: {pet.name}
+                            Name: {pet.name}
                         </Typography>
                         <Typography variant="h3" component="h3">
-                            age: {pet.age}
+                            Age: {pet.age}
                         </Typography>
                         <Typography variant="h3" component="h3">
-                            type: {pet.type}
+                            Type: {pet.type}
                         </Typography>
                         <Typography variant="h3" component="h3">
-                            created: {timeago.format(new Date(pet.created_at))}
+                            Created: {timeago.format(new Date(pet.created_at))}
                         </Typography>
                         <Typography variant="h3" component="h3">
-                            pet-color: {pet.color}
+                            Pet-color: {pet.color}
                         </Typography>
                     </Card>
                 )
